@@ -33,6 +33,8 @@ public class Main {
         m.employeeCountInEveryDepartment(employees);
         m.highestNumberOfEmployees1(employees);
         m.sortByAgeAndName(employees);
+        m.secondHighestPaidEmployee(employees);
+        m.highestPaidEmployeeInEachDept(employees);
 
 
 
@@ -201,6 +203,32 @@ public class Main {
 
         System.out.println(employees);
     }
+
+
+    //Few ChatGPT questions for practice again:
+
+    //Find the second highest-paid employee.
+
+    public void secondHighestPaidEmployee(List<Employee> emp){
+
+       Optional<Employee> emp1 = emp.stream()
+               .sorted(Comparator.comparingLong(Employee::getSalary).reversed())
+               .limit(2)
+                .skip(1)
+                .findFirst();
+
+        System.out.println("Highest 2nd paid employee is :" + emp1);
+
+
+    }
+
+    //Find the highest-paid employee in each department using Java 8 Streams.
+    public void highestPaidEmployeeInEachDept(List<Employee> li) {
+        Map<String, Optional<Employee>> hp= li.stream().collect(Collectors.groupingBy(Employee::getDeptName, Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
+        System.out.println(hp);
+
+    }
+
 
 
 
